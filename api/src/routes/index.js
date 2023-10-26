@@ -2,6 +2,8 @@ require("dotenv").config();
 const { Router } = require('express');
 const axios = require("axios")
 const {API_KEY} = process.env;
+const getDogId = require("../controllers/getDogId");
+const getDogName = require("../controllers/getDogName");
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -37,6 +39,10 @@ router.get('/dogs', async (req, res) => {
         res.status(500).json({ error: "Error al obtener datos de perros" });
     }
 });
+
+
+router.get('/dogs/:idRaza', getDogId);
+router.get('/dogsname', getDogName);
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
