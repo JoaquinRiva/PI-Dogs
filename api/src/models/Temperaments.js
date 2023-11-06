@@ -15,7 +15,7 @@ module.exports = (sequelize) => {
 
   Temperaments.associate = (models) => {
     Temperaments.belongsToMany(models.Dog, {
-      through: 'DogTemperaments',
+      through: 'Dog_Temperaments',
       foreignKey: 'temperamentsId',
     });
   };

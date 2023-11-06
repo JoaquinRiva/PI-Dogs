@@ -33,9 +33,10 @@ async function getDogName(req, res) {
                     id: apiDog.id,
                     image: apiDog.reference_image_id,
                     name: apiDog.name,
-                    height: apiDog.height.imperial,
-                    weight: apiDog.weight.imperial,
-                    life_span: apiDog.life_span
+                    height: apiDog.height.metric,
+                    weight: apiDog.weight.metric,
+                    life_span: apiDog.life_span,
+                    temperament: apiDog.temperament
                 };
             });
 

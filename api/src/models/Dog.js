@@ -21,15 +21,15 @@ module.exports = (sequelize) => {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
-    lifespan: {
+    life_span: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
   });
 
   Dog.associate = (models) => {
     Dog.belongsToMany(models.Temperaments, {
-      through: 'DogTemperaments',
+      through: 'Dog_Temperaments', 
       foreignKey: 'dogId',
     });
   };
