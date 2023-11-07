@@ -41,7 +41,8 @@ export const getDogsByName = (name) => async (dispatch) => {
         payload: data,
       });
     } catch (error) {
-      window.alert(error);
+      console.error("Error al buscar la raza:", error);
+    window.alert("Raza no encontrada, intente con otro nombre");
     }
   }
 

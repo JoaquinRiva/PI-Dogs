@@ -1,28 +1,38 @@
-import { useState } from "react";
-import {useDispatch} from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { getDogsByName } from "../redux/actions";
 
 export default function SearchBar() {
-    const [name, setName] = useState("");
-    const dispatch = useDispatch();
-    const handleSearch = ()=> {
-        dispatch(getDogsByName(name))
+  const [name, setName] = useState("");
+  const [error, setError] = useState(""); 
+  const dispatch = useDispatch();
+
+  const handleSearch = () => {
+    if (name.trim() === "") {
+      setError("Ingrese un nombre"); 
+      return;
     }
-    return(
-        <div>
-            <input 
-            type="search"
-            value={name}
-            onChange={(event=> setName(event.target.value))}
-            
-            placeholder="Buscar Raza" 
-            />
-            <div>
-              <button className="boton" onClick={handleSearch}>Buscar</button>  
-            </div>
-            
-                
-            
-        </div>
-    )
+    dispatch(getDogsByName(name));
+    setError(""); 
+  };
+
+  return (
+    <div>
+      <input
+        type="search"
+        value={name}
+        onChange={(event) => {
+          setName(event.target.value);
+          setError(""); 
+        }}
+        placeholder="Buscar Raza"
+      />
+      <div>
+        <button className="boton" onClick={handleSearch}>
+          Buscar
+        </button>
+      </div>
+      {error && <div style={{ color: "red" }}>{error}</div>} 
+    </div>
+  );
 }

@@ -2,12 +2,16 @@ const axios = require("axios")
 require('dotenv').config()
 const {API_KEY} = process.env
 const {Dog,Temperament} = require('../db')
-const URL = "https://api.thedogapi.com/v1/breeds"
+
 
 async function getDogs(req, res) {
   try {
     
-    const apiResponse = await axios(`${URL}?api_key=${API_KEY}`);
+    const apiResponse = await axios.get(`https://api.thedogapi.com/v1/breeds/`, {
+                headers: {
+                    'x-api-key': API_KEY
+                }
+            });
     const apiData = apiResponse.data;
 
     

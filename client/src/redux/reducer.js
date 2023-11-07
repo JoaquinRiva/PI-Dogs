@@ -53,16 +53,23 @@ import {
           dogs: [...orderDogs],
         };
   
-      case FILTER_BY_TEMPER:
-        const index = action.payload
-        const temperToFilter = state.allTempers[index]
-        const filteredDogsByTemper = state.dogs.filter((dog) => dog.temperament && dog.temperament.includes(temperToFilter))              
-        if(action.payload==="All"){
-        return{...state, dogs: state.allDogs }
-      }
-      return {
-        ...state, 
-        dogs: filteredDogsByTemper}
+        case FILTER_BY_TEMPER:
+          const index = action.payload;
+          const temperToFilter = state.allTempers[index];
+          let filteredDogsByTemper;
+        
+          if (action.payload === "All") {
+            filteredDogsByTemper = state.allDogs;
+          } else {
+            filteredDogsByTemper = state.allDogs.filter((dog) =>
+              dog.temperament && dog.temperament.includes(temperToFilter)
+            );
+          }
+          return {
+            ...state,
+            dogs: filteredDogsByTemper,
+          };
+        
   
       case FILTER_ALPHABETICALLY:
         let filteredDogs;

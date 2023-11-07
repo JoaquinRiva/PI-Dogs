@@ -14,37 +14,38 @@ function Form() {
     dispatch(getAllTempers());
   }, []);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    height: "",
-    weight: "",
-    life_span: "",
-    temperaments: [],
-  });
+  const temperamentsArray = temperaments.map((temper) => ({ name: temper.name }));
+
+const [formData, setFormData] = useState({
+  name: "",
+  height: "",
+  weight: "",
+  life_span: "",
+  temperaments: temperamentsArray, // Inicializar con los temperamentos disponibles
+});
 
   const [errors, setErrors] = useState({});
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
-
-    
+  
     setFormData((prevData) => ({
       ...prevData,
-      [name]: type === "checkbox" ? (
-        checked ? [...prevData.temperaments, value] : prevData.temperaments.filter((temp) => temp !== value)
-      ) : value,
+      [name]: type === "checkbox"
+        ? checked ? [...prevData.temperaments, value] : prevData.temperaments.filter((temp) => temp !== value)
+        : value,
     }));
-
-    
+  
     const newErrors = validacionForm({
       ...formData,
-      [name]: type === "checkbox" ? (
-        checked ? [...formData.temperaments, value] : formData.temperaments.filter((temp) => temp !== value)
-      ) : value,
+      [name]: type === "checkbox"
+        ? checked ? [...formData.temperaments, value] : formData.temperaments.filter((temp) => temp !== value)
+        : value,
     });
-
+  
     setErrors(newErrors);
   };
+  
 
   const sendDog = async (event) => {
     event.preventDefault();
@@ -85,20 +86,20 @@ function Form() {
       {errors.life_span && <p>{errors.life_span}</p>}
 
       <div>
-        <label>Temperaments:</label>
-        {temperaments.map((temper) => (
-          <label key={temper.id}>
-            <input
-              type="checkbox"
-              name="temperaments"
-              value={temper.name}
-              checked={formData.temperaments.includes(temper.name)}
-              onChange={handleChange}
-            />
-            {temper.name}
-          </label>
-        ))}
-      </div>
+      {temperaments.map((temper, index) => (
+  <label key={index}>
+    <input
+      type="checkbox"
+      name="temperaments"
+      value={temper}
+      checked={formData.temperaments.includes(temper)}
+      onChange={handleChange}
+    />
+    {temper}
+  </label>
+))}
+</div>
+
 
       <button type="submit">Create</button>
     </form>
